@@ -1,0 +1,25 @@
+{
+    "name": "dmn/ph-address",
+    "description": "PH Address",
+    "type": "library",
+    "authors": [
+        {
+            "name": "dmn"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dmn\\PhAddress\\": "src/",
+            "Database\\Seeders\\": "src/database/seeders/",
+            "Database\\Factories\\": "src/database/factories/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^9.4"
+    },
+    "require-dev": {
+        "laravel/lumen-framework": "^8.1",
+        "laravel/legacy-factories": "^1.0",
+        "fzaninotto/faker": "^1.9"
+    }
+}
