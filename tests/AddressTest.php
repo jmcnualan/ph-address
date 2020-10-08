@@ -2,48 +2,9 @@
 
 use Database\Factories\BarangayFactory;
 use Dmn\PhAddress\Example\Controller;
-use Laravel\Lumen\Testing\TestCase;
 
 class AddressTest extends TestCase
 {
-    /**
-     * @inheritDoc
-     */
-    public function createApplication()
-    {
-        return require __DIR__ . '/bootstrap.php';
-    }
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->runDatabaseMigrations();
-    }
-
-    /**
-     * Run the database migrations for the application.
-     *
-     * @return void
-     */
-    public function runDatabaseMigrations()
-    {
-        $migrationPath = __DIR__ . '/../src/database/migrations';
-
-        $this->artisan(
-            'migrate:fresh --realpath --path="'
-            . $migrationPath
-            . '"'
-        );
-
-        $this->beforeApplicationDestroyed(function () use ($migrationPath) {
-            $this->artisan(
-                'migrate:rollback --realpath --path="'
-                . $migrationPath
-                . '"'
-            );
-        });
-    }
-
     /**
      * @test
      * @testdox Seeder
@@ -66,9 +27,9 @@ class AddressTest extends TestCase
     {
         $this->app
             ->router
-            ->post('/', Controller::class . '@testWithoutDependency');
+            ->post('test', Controller::class . '@testWithoutDependency');
 
-        $this->post('/', [
+        $this->post('test', [
             'region_code' => 'invalid',
             'province_code' => 'invalid',
             'municipality_code' => 'invalid',
@@ -96,9 +57,9 @@ class AddressTest extends TestCase
 
         $this->app
             ->router
-            ->post('/', Controller::class . '@testWithDependency');
+            ->post('test', Controller::class . '@testWithDependency');
 
-        $this->post('/', [
+        $this->post('test', [
             'region_code' => $barangay->region_code,
             'province_code' => $barangay->province_code,
             'municipality_code' => $barangay->municipality_code,
@@ -121,9 +82,9 @@ class AddressTest extends TestCase
 
         $this->app
             ->router
-            ->post('/', Controller::class . '@testWithDependencyInvalid');
+            ->post('test', Controller::class . '@testWithDependencyInvalid');
 
-        $this->post('/', [
+        $this->post('test', [
             'region_code' => $barangay->region_code,
             'province_code' => $barangay->province_code,
             'municipality_code' => $barangay->municipality_code,

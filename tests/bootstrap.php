@@ -14,6 +14,8 @@ $app->withFacades();
 
 $app->withEloquent();
 
+$app->configure('ph_address');
+
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     \Laravel\Lumen\Exceptions\Handler::class
@@ -25,5 +27,11 @@ $app->singleton(
 );
 
 $app->register(\Dmn\PhAddress\PhAddressServiceProvider::class);
+
+$app->router->group([
+    'namespace' => 'Dmn\PhAddress\Http\Controllers',
+], function ($router) {
+    require __DIR__ . '/../routes/web.php';
+});
 
 return $app;
