@@ -138,7 +138,7 @@ class AddressSeeder extends Seeder
      */
     private function getRegionCode(string $code): string
     {
-        $regionCode = substr($code, 0, 3);
+        $regionCode = substr($code, 0, 2);
         return str_pad($regionCode, $this->codeLength, $this->padding);
     }
 
