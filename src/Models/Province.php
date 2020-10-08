@@ -2,10 +2,9 @@
 
 namespace Dmn\PhAddress\Models;
 
-use Dmn\PhAddress\Models\Region;
 use Dmn\PhAddress\Models\Traits\ScopeName;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Province extends Model
 {
@@ -22,12 +21,12 @@ class Province extends Model
     public $timestamps = false;
 
     /**
-     * Region relationship
+     * Municipality relationship
      *
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function region(): BelongsTo
+    public function municipalities(): HasMany
     {
-        return $this->belongsTo(Region::class);
+        return $this->hasMany(Municipality::class);
     }
 }

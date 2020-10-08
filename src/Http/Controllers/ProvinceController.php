@@ -3,12 +3,12 @@
 namespace Dmn\PhAddress\Http\Controllers;
 
 use Dmn\PhAddress\Http\Controllers\Controller;
-use Dmn\PhAddress\Http\Resources\Province;
-use Dmn\PhAddress\Http\Resources\Region as ResourcesRegion;
-use Dmn\PhAddress\Models\Region;
+use Dmn\PhAddress\Http\Resources\Municipality;
+use Dmn\PhAddress\Http\Resources\Province as ResourcesProvince;
+use Dmn\PhAddress\Models\Province;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RegionController extends Controller
+class ProvinceController extends Controller
 {
     /**
      * List
@@ -19,28 +19,28 @@ class RegionController extends Controller
     {
         $q = $this->getQuery();
 
-        $regions = Region::name($q)
+        $regions = Province::name($q)
             ->paginate($this->getPerPage());
 
-        return ResourcesRegion::collection($regions);
+        return ResourcesProvince::collection($regions);
     }
 
     /**
-     * Provinces
+     * Municipalities
      *
      * @param string $regionCode
      *
      * @return JsonResource
      */
-    public function province(string $regionCode): JsonResource
+    public function municipality(string $provinceCode): JsonResource
     {
         $q = $this->getQuery();
 
-        $provinces = Region::findOrFail($regionCode)
-            ->provinces()
+        $municipalities = Province::findOrFail($provinceCode)
+            ->municipalities()
             ->name($q)
             ->paginate($this->getPerPage());
         
-        return Province::collection($provinces);
+        return Municipality::collection($municipalities);
     }
 }
