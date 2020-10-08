@@ -3,13 +3,13 @@
 namespace Dmn\PhAddress\Models;
 
 use Dmn\PhAddress\Models\Province;
-use Dmn\PhAddress\Models\Traits\ScopeName;
+use Dmn\PhAddress\Models\Traits\Address;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Region extends Model
 {
-    use ScopeName;
+    use Address;
 
     protected $table = 'regions';
 

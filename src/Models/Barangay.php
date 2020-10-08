@@ -2,12 +2,12 @@
 
 namespace Dmn\PhAddress\Models;
 
-use Dmn\PhAddress\Models\Traits\ScopeName;
+use Dmn\PhAddress\Models\Traits\Address;
 use Illuminate\Database\Eloquent\Model;
 
 class Barangay extends Model
 {
-    use ScopeName;
+    use Address;
 
     protected $table = 'barangays';
 

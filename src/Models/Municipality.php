@@ -2,13 +2,13 @@
 
 namespace Dmn\PhAddress\Models;
 
-use Dmn\PhAddress\Models\Traits\ScopeName;
+use Dmn\PhAddress\Models\Traits\Address;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Municipality extends Model
 {
-    use ScopeName;
+    use Address;
 
     protected $table = 'municipalities';
 

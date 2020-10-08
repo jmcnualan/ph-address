@@ -4,7 +4,7 @@ namespace Dmn\PhAddress\Models\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait ScopeName
+trait Address
 {
     /**
      * Scope name
@@ -21,5 +21,15 @@ trait ScopeName
         }
 
         return $query->where('name', 'like', '%' . $q . '%');
+    }
+
+    /**
+     * Get the current connection name for the model.
+     *
+     * @return string|null
+     */
+    public function getConnectionName()
+    {
+        return config('ph_address.db_connection');
     }
 }
