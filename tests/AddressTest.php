@@ -11,11 +11,11 @@ class AddressTest extends TestCase
      *
      * @return void
      */
-    // public function seeder(): void
-    // {
-    // $this->artisan('db:seed --class=AddressSeeder');
-    // $this->seeInDatabase('barangays', ['code' => '168507009']);
-    // }
+    public function seeder(): void
+    {
+        $this->artisan('db:seed --class=AddressSeeder');
+        $this->seeInDatabase('barangays', ['code' => '012802001']);
+    }
 
     /**
      * @test

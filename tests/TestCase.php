@@ -28,7 +28,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function runDatabaseMigrations()
     {
-        $migrationPath = __DIR__ . '/../src/database/migrations';
+        $migrationPath = __DIR__ . '/../database/migrations';
 
         $this->artisan(
             'migrate:fresh --realpath --path="'

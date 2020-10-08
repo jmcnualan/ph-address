@@ -10,8 +10,8 @@
     "autoload": {
         "psr-4": {
             "Dmn\\PhAddress\\": "src/",
-            "Database\\Seeders\\": "src/database/seeders/",
-            "Database\\Factories\\": "src/database/factories/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {

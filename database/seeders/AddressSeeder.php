@@ -24,6 +24,10 @@ class AddressSeeder extends Seeder
         Model::unguard();
         $file = __DIR__ . '/PSGC.csv';
 
+        if (app()->environment() == 'testing') {
+            $file = __DIR__ . '/PSGCTest.csv';
+        }
+
         ini_set('auto_detect_line_endings', true);
         $handle = fopen($file, 'r');
         while (($data = fgetcsv($handle)) !== false) {
