@@ -15,3 +15,18 @@ $router->group(
         $router->get('{provinceCode}/municipality', 'ProvinceController@municipality');
     }
 );
+
+$router->group(
+    ['prefix' => 'municipality'],
+    function ($router) {
+        $router->get('/', 'MunicipalityController@index');
+        $router->get('{municipalityCode}/barangay', 'MunicipalityController@barangay');
+    }
+);
+
+$router->group(
+    ['prefix' => 'barangay'],
+    function ($router) {
+        $router->get('/', 'BarangayController@index');
+    }
+);

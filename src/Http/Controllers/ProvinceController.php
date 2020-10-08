@@ -28,7 +28,7 @@ class ProvinceController extends Controller
     /**
      * Municipalities
      *
-     * @param string $regionCode
+     * @param string $provinceCode
      *
      * @return JsonResource
      */
