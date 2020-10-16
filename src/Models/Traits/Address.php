@@ -24,6 +24,23 @@ trait Address
     }
 
     /**
+     * Scope area code
+     *
+     * @param Builder $query
+     * @param string|null $q
+     *
+     * @return Builder
+     */
+    public function scopeAreaCode(Builder $query, ?string $q = null): Builder
+    {
+        if (is_null($q) == true) {
+            return $query;
+        }
+
+        return $query->where('area_code', 'like', '%' . $q . '%');
+    }
+
+    /**
      * Get the current connection name for the model.
      *
      * @return string|null

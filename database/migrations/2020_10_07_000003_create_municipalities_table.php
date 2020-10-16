@@ -17,6 +17,7 @@ class CreateMunicipalitiesTable extends Migration
             $table->string('code', 10)->primary();
             $table->string('region_code', 10);
             $table->string('province_code', 10);
+            $table->string('area_code', 60)->nullable();
             $table->string('name', 60);
         });
     }

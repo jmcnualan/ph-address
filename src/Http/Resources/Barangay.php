@@ -17,6 +17,7 @@ class Barangay extends JsonResource
             'province_code' => $this->province_code,
             'municipality_code' => $this->municipality_code,
             'name' => $this->name,
+            'zip_code' => $this->zip_code,
         ];
     }
 }

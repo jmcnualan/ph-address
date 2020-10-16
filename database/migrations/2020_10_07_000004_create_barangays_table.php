@@ -18,6 +18,7 @@ class CreateBarangaysTable extends Migration
             $table->string('region_code', 10);
             $table->string('province_code', 10);
             $table->string('municipality_code', 10);
+            $table->string('zip_code', 5)->nullable();
             $table->string('name', 60);
         });
     }

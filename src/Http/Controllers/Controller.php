@@ -20,7 +20,7 @@ class Controller
     /**
      * get Query
      *
-     * @return void
+     * @return mixed|object
      */
     protected function getQuery()
     {

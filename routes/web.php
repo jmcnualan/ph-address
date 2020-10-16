@@ -30,3 +30,10 @@ $router->group(
         $router->get('/', 'BarangayController@index');
     }
 );
+
+$router->group(
+    ['prefix' => 'area-code'],
+    function ($router) {
+        $router->get('/', 'MunicipalityController@areaCode');
+    }
+);

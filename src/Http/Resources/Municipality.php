@@ -16,6 +16,7 @@ class Municipality extends JsonResource
             'region_code' => $this->region_code,
             'province_code' => $this->province_code,
             'name' => $this->name,
+            'area_code' => $this->area_code,
         ];
     }
 }

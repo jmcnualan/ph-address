@@ -23,6 +23,7 @@ class BarangayFactory extends Factory
             'region_code' => $municipality->region_code,
             'province_code' => $municipality->province_code,
             'municipality_code' => $municipality->code,
+            'zip_code' => $this->faker->lexify('????'),
         ];
     }
 }

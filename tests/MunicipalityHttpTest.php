@@ -2,6 +2,7 @@
 
 use Database\Factories\BarangayFactory;
 use Database\Factories\MunicipalityFactory;
+use Database\Factories\ProvinceFactory;
 use Dmn\PhAddress\Models\Barangay;
 use Dmn\PhAddress\Models\Municipality;
 
@@ -68,8 +69,8 @@ class MunicipalityHttpTest extends TestCase
     public function municipalitiesInProvince(): void
     {
         $municipalityFactory = new MunicipalityFactory();
-        $factory             = new BarangayFactory();
-        $municipality        = $municipalityFactory->create();
+        $factory = new BarangayFactory();
+        $municipality = $municipalityFactory->create();
         $factory->count(10)->create(['municipality_code' => $municipality->code]);
 
         $this->get('municipality/' . $municipality->code . '/barangay');
@@ -88,8 +89,8 @@ class MunicipalityHttpTest extends TestCase
     public function filterMunicipalitiesInProvince(): void
     {
         $municipalityFactory = new MunicipalityFactory();
-        $factory             = new BarangayFactory();
-        $municipality        = $municipalityFactory->create();
+        $factory = new BarangayFactory();
+        $municipality = $municipalityFactory->create();
         $factory->count(10)->create(['municipality_code' => $municipality->code]);
 
         $barangay = Barangay::first();
@@ -99,5 +100,32 @@ class MunicipalityHttpTest extends TestCase
 
         $response = $this->response->json();
         $this->assertEquals(1, count($response['data']));
+    }
+
+    /**
+     * @test
+     * @testdox Municipalities by area code
+     *
+     * @return void
+     */
+    public function filterMunicipalitiesByAreaCode(): void
+    {
+        $provinceFactory = new ProvinceFactory();
+        $factory = new MunicipalityFactory();
+        $province = $provinceFactory->create();
+
+        $str = \Illuminate\Support\Str::random(6);
+        $factory->count(10)->create(
+            [
+                'province_code' => $province->code,
+                'area_code' => $str
+            ]
+        );
+
+        $this->get('/area-code?q=' . $str);
+        $this->assertResponseOk();
+
+        $response = $this->response->json();
+        $this->assertEquals(10, count($response['data']));
     }
 }

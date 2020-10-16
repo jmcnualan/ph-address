@@ -14,6 +14,7 @@ class AddressSeeder extends Seeder
     protected $codeLength = 9;
 
     protected $padding = '0';
+
     /**
      * Run the database seeds.
      *
@@ -46,7 +47,7 @@ class AddressSeeder extends Seeder
      */
     private function insertToDb(array $data): void
     {
-        if ($data[2] == 'Reg') {
+        if (strtolower($data[2]) === 'reg') {
             $this->insertToRegion($data);
         }
 
@@ -58,7 +59,7 @@ class AddressSeeder extends Seeder
             $this->insertToMunicipality($data);
         }
 
-        if ($data[2] == 'Bgy') {
+        if (strtolower($data[2]) === 'bgy') {
             $this->insertToBarangay($data);
         }
     }
@@ -72,10 +73,12 @@ class AddressSeeder extends Seeder
      */
     private function insertToRegion(array $data): void
     {
-        Region::create([
-            'code' => $data[0],
-            'name' => $data[1],
-        ]);
+        Region::create(
+            [
+                'code' => $data[0],
+                'name' => $data[1],
+            ]
+        );
     }
 
     /**
@@ -87,11 +90,13 @@ class AddressSeeder extends Seeder
      */
     private function insertToProvince(array $data): void
     {
-        Province::create([
-            'code' => $data[0],
-            'region_code' => $this->getRegionCode($data[0]),
-            'name' => $data[1],
-        ]);
+        Province::create(
+            [
+                'code' => $data[0],
+                'region_code' => $this->getRegionCode($data[0]),
+                'name' => $data[1],
+            ]
+        );
     }
 
     /**
@@ -103,12 +108,18 @@ class AddressSeeder extends Seeder
      */
     private function insertToMunicipality(array $data): void
     {
-        Municipality::create([
+        $params = [
             'code' => $data[0],
             'region_code' => $this->getRegionCode($data[0]),
             'province_code' => $this->getProvinceCode($data[0]),
-            'name' => $data[1],
-        ]);
+            'name' => $data[1]
+        ];
+
+        if (count($data) > 4) {
+            $params = array_merge($params, ['area_code' => $data[4]]);
+        }
+
+        Municipality::create($params);
     }
 
     /**
@@ -120,13 +131,19 @@ class AddressSeeder extends Seeder
      */
     private function insertToBarangay(array $data): void
     {
-        Barangay::create([
+        $params = [
             'code' => $data[0],
             'region_code' => $this->getRegionCode($data[0]),
             'province_code' => $this->getProvinceCode($data[0]),
             'municipality_code' => $this->getMunicipalityCode($data[0]),
             'name' => $data[1],
-        ]);
+        ];
+
+        if (count($data) > 3) {
+            $params = array_merge($params, ['zip_code' => $data[3]]);
+        }
+
+        Barangay::create($params);
     }
 
     /**

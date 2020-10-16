@@ -2,7 +2,6 @@
 
 namespace Dmn\PhAddress\Http\Controllers;
 
-use Dmn\PhAddress\Http\Controllers\Controller;
 use Dmn\PhAddress\Http\Resources\Municipality as ResourcesMunicipality;
 use Dmn\PhAddress\Models\Municipality;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -41,5 +40,22 @@ class MunicipalityController extends Controller
             ->paginate($this->getPerPage());
 
         return ResourcesMunicipality::collection($barangays);
+    }
+
+    /**
+     * Area Code
+     *
+     * @param string $municipalityCode
+     *
+     * @return JsonResource
+     */
+    public function areaCode(): JsonResource
+    {
+        $q = $this->getQuery();
+
+        $areaCodes = Municipality::areaCode($q)
+            ->paginate($this->getPerPage());
+
+        return ResourcesMunicipality::collection($areaCodes);
     }
 }
