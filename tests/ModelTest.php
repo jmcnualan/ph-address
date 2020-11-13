@@ -1,7 +1,6 @@
 <?php
 
 use Database\Factories\BarangayFactory;
-use Database\Factories\MunicipalityFactory;
 use Dmn\PhAddress\Models\Barangay;
 use Dmn\PhAddress\Models\Municipality;
 use Dmn\PhAddress\Models\Province;
