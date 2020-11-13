@@ -20,6 +20,7 @@ $router->group(
     ['prefix' => 'municipality'],
     function ($router) {
         $router->get('/', 'MunicipalityController@index');
+        $router->get('{municipalityCode}/sub_municipality', 'MunicipalityController@subMunicipality');
         $router->get('{municipalityCode}/barangay', 'MunicipalityController@barangay');
     }
 );
