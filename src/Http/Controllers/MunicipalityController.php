@@ -3,6 +3,7 @@
 namespace Dmn\PhAddress\Http\Controllers;
 
 use Dmn\PhAddress\Http\Controllers\Controller;
+use Dmn\PhAddress\Http\Resources\Barangay;
 use Dmn\PhAddress\Http\Resources\Municipality as ResourcesMunicipality;
 use Dmn\PhAddress\Http\Resources\SubMunicipality;
 use Dmn\PhAddress\Models\Municipality;
@@ -60,6 +61,6 @@ class MunicipalityController extends Controller
             ->name($q)
             ->paginate($this->getPerPage());
 
-        return ResourcesMunicipality::collection($barangays);
+        return Barangay::collection($barangays);
     }
 }
