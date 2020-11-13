@@ -4,7 +4,7 @@ namespace Dmn\PhAddress\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Municipality extends JsonResource
+class SubMunicipality extends JsonResource
 {
     /**
      * @inheritDoc
@@ -15,8 +15,8 @@ class Municipality extends JsonResource
             'code' => $this->code,
             'region_code' => $this->region_code,
             'province_code' => $this->province_code,
+            'municipality_code' => $this->municipality_code,
             'name' => $this->name,
-            'has_sub' => $this->has_sub,
         ];
     }
 }

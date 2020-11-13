@@ -1,6 +1,7 @@
 <?php
 
 use Database\Factories\BarangayFactory;
+use Database\Factories\RegionFactory;
 use Dmn\PhAddress\Example\Controller;
 
 class AddressTest extends TestCase
@@ -15,6 +16,20 @@ class AddressTest extends TestCase
     {
         $this->artisan('db:seed --class=AddressSeeder');
         $this->seeInDatabase('barangays', ['code' => '012802001']);
+    }
+
+    /**
+     * @test
+     * @testdox Seeder with Region
+     *
+     * @return void
+     */
+    public function seederWithRegion(): void
+    {
+        $factory = new RegionFactory();
+        $factory->count(1)->create();
+        $this->artisan('db:seed --class=AddressSeeder');
+        $this->notSeeInDatabase('barangays', ['code' => '012802001']);
     }
 
     /**

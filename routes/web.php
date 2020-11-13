@@ -25,6 +25,14 @@ $router->group(
 );
 
 $router->group(
+    ['prefix' => 'sub_municipality'],
+    function ($router) {
+        $router->get('/', 'SubMunicipalityController@index');
+        $router->get('{subMunicipalityCode}/barangay', 'SubMunicipalityController@barangay');
+    }
+);
+
+$router->group(
     ['prefix' => 'barangay'],
     function ($router) {
         $router->get('/', 'BarangayController@index');

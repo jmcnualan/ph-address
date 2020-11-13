@@ -61,11 +61,11 @@ class MunicipalityHttpTest extends TestCase
 
     /**
      * @test
-     * @testdox Municipalities under a province
+     * @testdox Barangays under a municipality
      *
      * @return void
      */
-    public function municipalitiesInProvince(): void
+    public function barangaysInMunicipality(): void
     {
         $municipalityFactory = new MunicipalityFactory();
         $factory             = new BarangayFactory();
@@ -81,11 +81,11 @@ class MunicipalityHttpTest extends TestCase
 
     /**
      * @test
-     * @testdox Provinces under a region filter
+     * @testdox Barangays under a municipality
      *
      * @return void
      */
-    public function filterMunicipalitiesInProvince(): void
+    public function filterbarangaysInMunicipality(): void
     {
         $municipalityFactory = new MunicipalityFactory();
         $factory             = new BarangayFactory();

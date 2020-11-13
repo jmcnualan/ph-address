@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use Database\Factories\MunicipalityFactory;
+use Database\Factories\SubMunicipalityFactory;
 use Dmn\PhAddress\Models\Barangay;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,14 +15,15 @@ class BarangayFactory extends Factory
      */
     public function definition()
     {
-        $factory = new MunicipalityFactory();
-        $municipality = $factory->create();
+        $factory = new SubMunicipalityFactory();
+        $subMunicipality = $factory->create();
         return [
             'name' => $this->faker->city,
             'code' => $this->faker->lexify('?????????'),
-            'region_code' => $municipality->region_code,
-            'province_code' => $municipality->province_code,
-            'municipality_code' => $municipality->code,
+            'region_code' => $subMunicipality->region_code,
+            'province_code' => $subMunicipality->province_code,
+            'municipality_code' => $subMunicipality->municipality_code,
+            'sub_municipality_code' => $subMunicipality->code,
         ];
     }
 }

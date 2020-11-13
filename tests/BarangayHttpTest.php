@@ -23,11 +23,11 @@ class BarangayHttpTest extends TestCase
 
     /**
      * @test
-     * @testdox Municipality list per page
+     * @testdox Barangay list per page
      *
      * @return void
      */
-    public function listMunicipalityPerPage(): void
+    public function listBarangayPerPage(): void
     {
         $factory = new BarangayFactory();
         $factory->count(10)->create();
