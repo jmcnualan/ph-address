@@ -3,6 +3,7 @@
 namespace Dmn\PhAddress;
 
 use Dmn\PhAddress\Validators\ValidBarangay;
+use Dmn\PhAddress\Validators\ValidCountry;
 use Dmn\PhAddress\Validators\ValidMunicipality;
 use Dmn\PhAddress\Validators\ValidProvince;
 use Dmn\PhAddress\Validators\ValidRegion;
@@ -34,6 +35,11 @@ class PhAddressServiceProvider extends ServiceProvider
         Validator::extend(
             'valid_barangay_code',
             ValidBarangay::class . '@validate'
+        );
+
+        Validator::extend(
+            'valid_country_code',
+            ValidCountry::class . '@validate'
         );
     }
 }

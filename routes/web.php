@@ -1,5 +1,7 @@
 <?php
 
+$router->get('country', 'CountryController@index');
+
 $router->group(
     ['prefix' => 'region'],
     function ($router) {
