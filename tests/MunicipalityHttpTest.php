@@ -2,8 +2,10 @@
 
 use Database\Factories\BarangayFactory;
 use Database\Factories\MunicipalityFactory;
+use Database\Factories\SubMunicipalityFactory;
 use Dmn\PhAddress\Models\Barangay;
 use Dmn\PhAddress\Models\Municipality;
+use Dmn\PhAddress\Models\SubMunicipality;
 
 class MunicipalityHttpTest extends TestCase
 {
@@ -61,11 +63,11 @@ class MunicipalityHttpTest extends TestCase
 
     /**
      * @test
-     * @testdox Municipalities under a province
+     * @testdox Barangays under a municipality
      *
      * @return void
      */
-    public function municipalitiesInProvince(): void
+    public function barangaysInMunicipality(): void
     {
         $municipalityFactory = new MunicipalityFactory();
         $factory             = new BarangayFactory();
@@ -81,11 +83,11 @@ class MunicipalityHttpTest extends TestCase
 
     /**
      * @test
-     * @testdox Provinces under a region filter
+     * @testdox Barangays under a municipality
      *
      * @return void
      */
-    public function filterMunicipalitiesInProvince(): void
+    public function filterbarangaysInMunicipality(): void
     {
         $municipalityFactory = new MunicipalityFactory();
         $factory             = new BarangayFactory();
@@ -95,6 +97,48 @@ class MunicipalityHttpTest extends TestCase
         $barangay = Barangay::first();
 
         $this->get('municipality/' . $municipality->code . '/barangay?q=' . $barangay->name);
+        $this->assertResponseOk();
+
+        $response = $this->response->json();
+        $this->assertEquals(1, count($response['data']));
+    }
+
+    /**
+     * @test
+     * @testdox Sub municipalitie under a municipality
+     *
+     * @return void
+     */
+    public function subMunicipalitiesInMunicipality(): void
+    {
+        $municipalityFactory = new MunicipalityFactory();
+        $factory             = new SubMunicipalityFactory();
+        $municipality        = $municipalityFactory->create();
+        $factory->count(10)->create(['municipality_code' => $municipality->code]);
+
+        $this->get('municipality/' . $municipality->code . '/sub_municipality');
+        $this->assertResponseOk();
+
+        $response = $this->response->json();
+        $this->assertEquals(10, count($response['data']));
+    }
+
+    /**
+     * @test
+     * @testdox Sub Municipality under a municipality ~ filter
+     *
+     * @return void
+     */
+    public function filterSubMunicipalitiesInMunicipality(): void
+    {
+        $municipalityFactory = new MunicipalityFactory();
+        $factory             = new SubMunicipalityFactory();
+        $municipality        = $municipalityFactory->create();
+        $factory->count(10)->create(['municipality_code' => $municipality->code]);
+
+        $subMunicipality = SubMunicipality::first();
+
+        $this->get('municipality/' . $municipality->code . '/sub_municipality?q=' . $subMunicipality->name);
         $this->assertResponseOk();
 
         $response = $this->response->json();

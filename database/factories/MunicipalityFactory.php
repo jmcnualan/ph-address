@@ -22,6 +22,7 @@ class MunicipalityFactory extends Factory
             'code' => $this->faker->lexify('?????????'),
             'region_code' => $province->region_code,
             'province_code' => $province->code,
+            'has_sub' => rand(0, 1),
         ];
     }
 }

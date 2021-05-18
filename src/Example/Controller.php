@@ -38,4 +38,11 @@ class Controller extends BaseController
             'barangay_code' => 'valid_barangay_code:123',
         ]);
     }
+
+    public function testCountry(Request $request)
+    {
+        return $this->validate($request, [
+            'country_code' => 'valid_country_code',
+        ]);
+    }
 }

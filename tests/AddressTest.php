@@ -1,6 +1,8 @@
 <?php
 
 use Database\Factories\BarangayFactory;
+use Database\Factories\CountryFactory;
+use Database\Factories\RegionFactory;
 use Dmn\PhAddress\Example\Controller;
 
 class AddressTest extends TestCase
@@ -15,6 +17,52 @@ class AddressTest extends TestCase
     {
         $this->artisan('db:seed --class=AddressSeeder');
         $this->seeInDatabase('barangays', ['code' => '012802001']);
+    }
+
+    /**
+     * @test
+     * @testdox Seeder with Region
+     *
+     * @return void
+     */
+    public function seederWithRegion(): void
+    {
+        $factory = new RegionFactory();
+        $factory->count(1)->create();
+        $this->artisan('db:seed --class=AddressSeeder');
+        $this->notSeeInDatabase('barangays', ['code' => '012802001']);
+    }
+
+    /**
+     * @test
+     * @testdox Country seeder
+     *
+     * @return void
+     */
+    public function countrySeeder(): void
+    {
+        $this->artisan('db:seed --class=CountrySeeder');
+        $this->seeInDatabase('countries', [
+            'code' => 'PH',
+            'name' => 'Philippines'
+        ]);
+    }
+
+    /**
+     * @test
+     * @testdox Country seeder
+     *
+     * @return void
+     */
+    public function countrySeederWithCountry(): void
+    {
+        $factory = new CountryFactory();
+        $factory->create();
+        $this->artisan('db:seed --class=CountrySeeder');
+        $this->notSeeInDatabase('countries', [
+            'code' => 'PH',
+            'name' => 'Philippines'
+        ]);
     }
 
     /**
@@ -52,8 +100,8 @@ class AddressTest extends TestCase
      */
     public function httpTestWithDependency(): void
     {
-        $factory  = new BarangayFactory();
-        $barangay = $factory->create();
+        $factory        = new BarangayFactory();
+        $barangay       = $factory->create();
 
         $this->app
             ->router
@@ -96,5 +144,48 @@ class AddressTest extends TestCase
                 'municipality_code' => 'validation.valid_municipality_code',
                 'barangay_code' => 'validation.valid_barangay_code',
             ], null);
+    }
+
+    /**
+     * @test
+     * @testdox Country validator
+     *
+     * @return void
+     */
+    public function countryValidator(): void
+    {
+        $this->app
+            ->router
+            ->post('test', Controller::class . '@testCountry');
+
+        $this->post('test', [
+            'country_code' => 'test'
+        ]);
+
+        $this->response->assertJsonValidationErrors([
+            'country_code' => 'validation.valid_country_code'
+        ], null);
+    }
+
+    /**
+     * @test
+     * @testdox Country successful validation
+     *
+     * @return void
+     */
+    public function countrySuccessValidation(): void
+    {
+        $countryFactory = new CountryFactory();
+        $country        = $countryFactory->create();
+
+        $this->app
+            ->router
+            ->post('test', Controller::class . '@testCountry');
+
+        $this->post('test', [
+            'country_code' => $country->code
+        ]);
+
+        $this->assertResponseOk();
     }
 }

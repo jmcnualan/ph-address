@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMunicipalitiesTable extends Migration
+class CreateSubMunicipalitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateMunicipalitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('municipalities', function (Blueprint $table) {
+        Schema::create('sub_municipalities', function (Blueprint $table) {
             $table->string('code', 10)->primary();
             $table->string('region_code', 10);
             $table->string('province_code', 10);
+            $table->string('municipality_code', 10);
             $table->string('name', 60);
-            $table->boolean('has_sub')->default(false);
         });
     }
 
@@ -29,6 +29,6 @@ class CreateMunicipalitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('municipalities');
+        Schema::dropIfExists('sub_municipalities');
     }
 }
