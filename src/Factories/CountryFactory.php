@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Dmn\PhAddress\Factories;
 
 use Dmn\PhAddress\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;

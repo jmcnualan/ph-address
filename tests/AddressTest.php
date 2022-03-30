@@ -1,9 +1,12 @@
 <?php
 
-use Database\Factories\BarangayFactory;
-use Database\Factories\CountryFactory;
-use Database\Factories\RegionFactory;
+namespace Tests;
+
 use Dmn\PhAddress\Example\Controller;
+use Dmn\PhAddress\Models\Barangay;
+use Dmn\PhAddress\Models\Country;
+use Dmn\PhAddress\Models\Region;
+use Tests\TestCase;
 
 class AddressTest extends TestCase
 {
@@ -27,8 +30,7 @@ class AddressTest extends TestCase
      */
     public function seederWithRegion(): void
     {
-        $factory = new RegionFactory();
-        $factory->count(1)->create();
+        Region::factory()->create();
         $this->artisan('db:seed --class=AddressSeeder');
         $this->notSeeInDatabase('barangays', ['code' => '012802001']);
     }
@@ -56,8 +58,7 @@ class AddressTest extends TestCase
      */
     public function countrySeederWithCountry(): void
     {
-        $factory = new CountryFactory();
-        $factory->create();
+        Country::factory()->create();
         $this->artisan('db:seed --class=CountrySeeder');
         $this->notSeeInDatabase('countries', [
             'code' => 'PH',
@@ -100,8 +101,7 @@ class AddressTest extends TestCase
      */
     public function httpTestWithDependency(): void
     {
-        $factory        = new BarangayFactory();
-        $barangay       = $factory->create();
+        $barangay = Barangay::factory()->create();
 
         $this->app
             ->router
@@ -125,8 +125,7 @@ class AddressTest extends TestCase
      */
     public function httpTestWithDependencyInvalid(): void
     {
-        $factory  = new BarangayFactory();
-        $barangay = $factory->create();
+        $barangay = Barangay::factory()->create();
 
         $this->app
             ->router
@@ -175,8 +174,7 @@ class AddressTest extends TestCase
      */
     public function countrySuccessValidation(): void
     {
-        $countryFactory = new CountryFactory();
-        $country        = $countryFactory->create();
+        $country = Country::factory()->create();
 
         $this->app
             ->router

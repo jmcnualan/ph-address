@@ -1,6 +1,9 @@
 <?php
 
-use Database\Factories\BarangayFactory;
+namespace Tests;
+
+use Dmn\PhAddress\Models\Barangay;
+use Tests\TestCase;
 
 class BarangayHttpTest extends TestCase
 {
@@ -12,8 +15,7 @@ class BarangayHttpTest extends TestCase
      */
     public function listBarangay(): void
     {
-        $factory = new BarangayFactory();
-        $factory->count(10)->create();
+        Barangay::factory(10)->create();
         $this->get('barangay');
 
         $response = $this->response->json();
@@ -29,8 +31,7 @@ class BarangayHttpTest extends TestCase
      */
     public function listBarangayPerPage(): void
     {
-        $factory = new BarangayFactory();
-        $factory->count(10)->create();
+        Barangay::factory(10)->create();
         $this->get('barangay?per_page=2');
 
         $response = $this->response->json();

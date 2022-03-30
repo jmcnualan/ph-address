@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Dmn\PhAddress\Factories;
 
-use Database\Factories\MunicipalityFactory;
+use Dmn\PhAddress\Models\Municipality;
 use Dmn\PhAddress\Models\SubMunicipality;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,8 +15,7 @@ class SubMunicipalityFactory extends Factory
      */
     public function definition()
     {
-        $factory = new MunicipalityFactory();
-        $municipality = $factory->create();
+        $municipality = Municipality::factory()->create();
         return [
             'name' => $this->faker->city,
             'code' => $this->faker->lexify('?????????'),

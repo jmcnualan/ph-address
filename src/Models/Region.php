@@ -2,17 +2,21 @@
 
 namespace Dmn\PhAddress\Models;
 
+use Dmn\PhAddress\Factories\RegionFactory;
 use Dmn\PhAddress\Models\Barangay;
 use Dmn\PhAddress\Models\Municipality;
 use Dmn\PhAddress\Models\Province;
 use Dmn\PhAddress\Models\SubMunicipality;
 use Dmn\PhAddress\Models\Traits\Address;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Region extends Model
 {
     use Address;
+    use HasFactory;
 
     protected $table = 'regions';
 
@@ -23,6 +27,16 @@ class Region extends Model
     public $incrementing = false;
 
     public $timestamps = false;
+
+    /**
+     * Factory
+     *
+     * @return Factory
+     */
+    protected static function newFactory(): Factory
+    {
+        return new RegionFactory();
+    }
 
     /**
      * Provinces relationship
