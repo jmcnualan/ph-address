@@ -1,12 +1,14 @@
 <?php
 
-use Database\Factories\BarangayFactory;
+namespace Tests;
+
 use Dmn\PhAddress\Models\Barangay;
 use Dmn\PhAddress\Models\Municipality;
 use Dmn\PhAddress\Models\Province;
 use Dmn\PhAddress\Models\Region;
 use Dmn\PhAddress\Models\SubMunicipality;
 use Illuminate\Database\Eloquent\Collection;
+use Tests\TestCase;
 
 class ModelTest extends TestCase
 {
@@ -18,8 +20,7 @@ class ModelTest extends TestCase
      */
     public function region(): void
     {
-        $factory = new BarangayFactory();
-        $factory->create();
+        Barangay::factory()->create();
 
         $region = Region::first();
 
@@ -44,8 +45,7 @@ class ModelTest extends TestCase
      */
     public function province(): void
     {
-        $factory = new BarangayFactory();
-        $factory->create();
+        Barangay::factory()->create();
 
         $province = Province::first();
 
@@ -69,8 +69,7 @@ class ModelTest extends TestCase
      */
     public function municipality(): void
     {
-        $factory = new BarangayFactory();
-        $factory->create();
+        Barangay::factory()->create();
 
         $municipality = Municipality::first();
 
@@ -92,8 +91,7 @@ class ModelTest extends TestCase
      */
     public function subMunicipality(): void
     {
-        $factory = new BarangayFactory();
-        $factory->create();
+        Barangay::factory()->create();
 
         $subMunicipality = SubMunicipality::first();
 
@@ -113,10 +111,7 @@ class ModelTest extends TestCase
      */
     public function barangay(): void
     {
-        $factory = new BarangayFactory();
-        $factory->create();
-
-        $barangay = Barangay::first();
+        $barangay = Barangay::factory()->create();
 
         $this->assertInstanceOf(Region::class, $barangay->region);
         $this->assertInstanceOf(Province::class, $barangay->province);

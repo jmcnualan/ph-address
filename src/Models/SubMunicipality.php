@@ -2,8 +2,11 @@
 
 namespace Dmn\PhAddress\Models;
 
+use Dmn\PhAddress\Factories\SubMunicipalityFactory;
 use Dmn\PhAddress\Models\Municipality;
 use Dmn\PhAddress\Models\Traits\Address;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class SubMunicipality extends Model
 {
     use Address;
+    use HasFactory;
 
     protected $table = 'sub_municipalities';
 
@@ -21,6 +25,16 @@ class SubMunicipality extends Model
     public $incrementing = false;
 
     public $timestamps = false;
+
+    /**
+     * Factory
+     *
+     * @return Factory
+     */
+    protected static function newFactory(): Factory
+    {
+        return new SubMunicipalityFactory();
+    }
 
     /**
      * Barangays relationship

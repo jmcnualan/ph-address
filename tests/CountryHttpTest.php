@@ -1,9 +1,9 @@
 <?php
 
-use Database\Factories\BarangayFactory;
-use Database\Factories\CountryFactory;
+namespace Tests;
+
 use Dmn\PhAddress\Models\Country;
-use PHPUnit\Framework\Constraint\Count;
+use Tests\TestCase;
 
 class CountryHttpTest extends TestCase
 {
@@ -15,8 +15,7 @@ class CountryHttpTest extends TestCase
      */
     public function list(): void
     {
-        $factory = new CountryFactory();
-        $factory->count(10)->create();
+        Country::factory(10)->create();
         $this->get('country');
 
         $response = $this->response->json();
@@ -32,8 +31,7 @@ class CountryHttpTest extends TestCase
      */
     public function perPage(): void
     {
-        $factory = new CountryFactory();
-        $factory->count(10)->create();
+        Country::factory(10)->create();
         $this->get('country?per_page=2');
 
         $response = $this->response->json();
@@ -49,9 +47,8 @@ class CountryHttpTest extends TestCase
      */
     public function filter(): void
     {
-        $factory = new CountryFactory();
-        $factory->create(['code' => 'wa', 'name' => 'country name']);
-        $factory->create(['code' => 'wa1', 'name' => 'another test']);
+        Country::factory()->create(['code' => 'wa', 'name' => 'country name']);
+        Country::factory()->create(['code' => 'wa1', 'name' => 'another test']);
         $country = Country::first();
         $this->get('country?q=' . $country->name);
 

@@ -1,24 +1,22 @@
 <?php
 
-namespace Database\Factories;
+namespace Dmn\PhAddress\Factories;
 
-use Dmn\PhAddress\Models\Province;
+use Dmn\PhAddress\Models\Region;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProvinceFactory extends Factory
+class RegionFactory extends Factory
 {
-    protected $model = Province::class;
+    protected $model = Region::class;
 
     /**
      * @inheritDoc
      */
     public function definition()
     {
-        $factory = new RegionFactory();
         return [
             'name' => $this->faker->city,
             'code' => $this->faker->lexify('?????????'),
-            'region_code' => $factory->create(),
         ];
     }
 }

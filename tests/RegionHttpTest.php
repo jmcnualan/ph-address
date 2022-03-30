@@ -1,9 +1,10 @@
 <?php
 
-use Database\Factories\ProvinceFactory;
-use Database\Factories\RegionFactory;
+namespace Tests;
+
 use Dmn\PhAddress\Models\Province;
 use Dmn\PhAddress\Models\Region;
+use Tests\TestCase;
 
 class RegionHttpTest extends TestCase
 {
@@ -15,8 +16,7 @@ class RegionHttpTest extends TestCase
      */
     public function listRegion(): void
     {
-        $factory = new RegionFactory();
-        $factory->count(10)->create();
+        Region::factory(10)->create();
         $this->get('region');
 
         $response = $this->response->json();
@@ -32,8 +32,7 @@ class RegionHttpTest extends TestCase
      */
     public function listRegionPerPage(): void
     {
-        $factory = new RegionFactory();
-        $factory->count(10)->create();
+        Region::factory(10)->create();
         $this->get('region?per_page=2');
 
         $response = $this->response->json();
@@ -49,8 +48,7 @@ class RegionHttpTest extends TestCase
      */
     public function filterRegion(): void
     {
-        $factory = new RegionFactory();
-        $factory->count(10)->create();
+        Region::factory(10)->create();
         $region = Region::first();
         $this->get('region?q=' . $region->name);
 
@@ -67,10 +65,8 @@ class RegionHttpTest extends TestCase
      */
     public function provincesInRegion(): void
     {
-        $regionFactory = new RegionFactory();
-        $factory       = new ProvinceFactory();
-        $region        = $regionFactory->create();
-        $factory->count(10)->create(['region_code' => $region->code]);
+        $region = Region::factory()->create();
+        Province::factory(10)->create(['region_code' => $region->code]);
 
         $this->get('region/' . $region->code . '/province');
         $this->assertResponseOk();
@@ -87,10 +83,8 @@ class RegionHttpTest extends TestCase
      */
     public function filterProvincesInRegion(): void
     {
-        $regionFactory = new RegionFactory();
-        $factory       = new ProvinceFactory();
-        $region        = $regionFactory->create();
-        $factory->count(10)->create(['region_code' => $region->code]);
+        $region = Region::factory()->create();
+        Province::factory(10)->create(['region_code' => $region->code]);
 
         $province = Province::first();
 

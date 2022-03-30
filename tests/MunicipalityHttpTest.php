@@ -1,11 +1,11 @@
 <?php
 
-use Database\Factories\BarangayFactory;
-use Database\Factories\MunicipalityFactory;
-use Database\Factories\SubMunicipalityFactory;
+namespace Tests;
+
 use Dmn\PhAddress\Models\Barangay;
 use Dmn\PhAddress\Models\Municipality;
 use Dmn\PhAddress\Models\SubMunicipality;
+use Tests\TestCase;
 
 class MunicipalityHttpTest extends TestCase
 {
@@ -17,8 +17,7 @@ class MunicipalityHttpTest extends TestCase
      */
     public function listMunicipality(): void
     {
-        $factory = new MunicipalityFactory();
-        $factory->count(10)->create();
+        Municipality::factory(10)->create();
         $this->get('municipality');
 
         $response = $this->response->json();
@@ -34,8 +33,7 @@ class MunicipalityHttpTest extends TestCase
      */
     public function listMunicipalityPerPage(): void
     {
-        $factory = new MunicipalityFactory();
-        $factory->count(10)->create();
+        Municipality::factory(10)->create();
         $this->get('municipality?per_page=2');
 
         $response = $this->response->json();
@@ -51,8 +49,7 @@ class MunicipalityHttpTest extends TestCase
      */
     public function filterMunicipality(): void
     {
-        $factory = new MunicipalityFactory();
-        $factory->count(10)->create();
+        Municipality::factory(10)->create();
         $municipality = Municipality::first();
         $this->get('municipality?q=' . $municipality->name);
 
@@ -69,10 +66,8 @@ class MunicipalityHttpTest extends TestCase
      */
     public function barangaysInMunicipality(): void
     {
-        $municipalityFactory = new MunicipalityFactory();
-        $factory             = new BarangayFactory();
-        $municipality        = $municipalityFactory->create();
-        $factory->count(10)->create(['municipality_code' => $municipality->code]);
+        $municipality = Municipality::factory()->create();
+        Barangay::factory()->count(10)->create(['municipality_code' => $municipality->code]);
 
         $this->get('municipality/' . $municipality->code . '/barangay');
         $this->assertResponseOk();
@@ -89,10 +84,8 @@ class MunicipalityHttpTest extends TestCase
      */
     public function filterbarangaysInMunicipality(): void
     {
-        $municipalityFactory = new MunicipalityFactory();
-        $factory             = new BarangayFactory();
-        $municipality        = $municipalityFactory->create();
-        $factory->count(10)->create(['municipality_code' => $municipality->code]);
+        $municipality = Municipality::factory()->create();
+        Barangay::factory()->count(10)->create(['municipality_code' => $municipality->code]);
 
         $barangay = Barangay::first();
 
@@ -111,10 +104,8 @@ class MunicipalityHttpTest extends TestCase
      */
     public function subMunicipalitiesInMunicipality(): void
     {
-        $municipalityFactory = new MunicipalityFactory();
-        $factory             = new SubMunicipalityFactory();
-        $municipality        = $municipalityFactory->create();
-        $factory->count(10)->create(['municipality_code' => $municipality->code]);
+        $municipality = Municipality::factory()->create();
+        SubMunicipality::factory()->count(10)->create(['municipality_code' => $municipality->code]);
 
         $this->get('municipality/' . $municipality->code . '/sub_municipality');
         $this->assertResponseOk();
@@ -131,10 +122,8 @@ class MunicipalityHttpTest extends TestCase
      */
     public function filterSubMunicipalitiesInMunicipality(): void
     {
-        $municipalityFactory = new MunicipalityFactory();
-        $factory             = new SubMunicipalityFactory();
-        $municipality        = $municipalityFactory->create();
-        $factory->count(10)->create(['municipality_code' => $municipality->code]);
+        $municipality = Municipality::factory()->create();
+        SubMunicipality::factory()->count(10)->create(['municipality_code' => $municipality->code]);
 
         $subMunicipality = SubMunicipality::first();
 

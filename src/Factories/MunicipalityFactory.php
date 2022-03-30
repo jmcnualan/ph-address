@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories;
+namespace Dmn\PhAddress\Factories;
 
-use Database\Factories\ProvinceFactory;
 use Dmn\PhAddress\Models\Municipality;
+use Dmn\PhAddress\Models\Province;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MunicipalityFactory extends Factory
@@ -15,8 +15,7 @@ class MunicipalityFactory extends Factory
      */
     public function definition()
     {
-        $factory = new ProvinceFactory();
-        $province = $factory->create();
+        $province = Province::factory()->create();
         return [
             'name' => $this->faker->city,
             'code' => $this->faker->lexify('?????????'),
